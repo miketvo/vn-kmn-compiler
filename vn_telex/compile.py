@@ -9,3 +9,4 @@ content = [
 if __name__ == '__main__':
     out = open(OUT_PATH, 'w')
     out.writelines(content)
+    out.close()
