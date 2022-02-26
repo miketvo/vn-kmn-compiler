@@ -11,7 +11,7 @@ OUT_PATH = './compiled/out.kmn'
 MODIFIERS = list('sfrxjwoa')
 
 
-@jit
+@jit(forceobj=True)
 def main():
     syllables = []
 
