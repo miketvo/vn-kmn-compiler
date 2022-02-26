@@ -26,7 +26,16 @@ if __name__ == '__main__':
     inf.close()
     print('[DONE]')
 
-
+    print('Generating uppercase/lowercase syllable permutations... ', end='')
+    additions = []
+    for syllable in syllables:
+        permutations = charcases.gen_case_permutations(syllable)
+        for permutation in permutations:
+            additions.append(permutation)
+    for addition in additions:
+        syllables.append(addition)
+    syllables.sort()
+    print('[DONE]')
 
     print('Analyzing syllables... ')
     rules = []
@@ -60,7 +69,7 @@ if __name__ == '__main__':
     )
 
     print('Cleaning up ruleset bases... ')
-    del_list = []
+    is_del = [True] * len(rules)
     for i in range(len(rules)):
         progbar.print_bar(
             percentage=round(i / len(rules) * 100),
@@ -73,28 +82,29 @@ if __name__ == '__main__':
                     message=f'({i}/{len(rules)}) base: {rules[i]["base"]} -> {syllable}'
                 )
                 rules[i]['base'] = syllable
-            else:
-                del_list.append(i)
+                is_del[i] = False
     progbar.print_done(f'Cleaning complete.')
 
     print('Deleting incorrect rules... ', end='')
-    for index in del_list:
-        del(rules[index])
-    print('[DONE]')
+    rules_filtered = []
+    for i in range(len(is_del)):
+        if not is_del[i]:
+            rules_filtered.append(rules[i])
+    print(f'[DONE] {len(rules_filtered)} rule(s) left.')
 
     print('Generating Keyman code... ')
-    for i in range(len(rules)):
-        code = f"    '{rules[i]['base']}' + '{rules[i]['modifier'].lower()}' > '{rules[i]['result']}'\n"
+    for i in range(len(rules_filtered)):
+        code = f"    '{rules_filtered[i]['base']}' + '{rules_filtered[i]['modifier'].lower()}' > '{rules_filtered[i]['result']}'\n"
         content.append(code)
         progbar.print_bar(
-            percentage=round(i / len(rules) * 100),
-            message=f'({i}/{len(rules)}) {code}'
+            percentage=round(i / len(rules_filtered) * 100),
+            message=f'({i}/{len(rules_filtered)}) {code}'
         )
-        code = f"    '{rules[i]['base']}' + '{rules[i]['modifier'].upper()}' > '{rules[i]['result']}'\n"
+        code = f"    '{rules_filtered[i]['base']}' + '{rules_filtered[i]['modifier'].upper()}' > '{rules_filtered[i]['result']}'\n"
         content.append(code)
         progbar.print_bar(
-            percentage=round(i / len(rules) * 100),
-            message=f'({i}/{len(rules)}) {code}'
+            percentage=round(i / len(rules_filtered) * 100),
+            message=f'({i}/{len(rules_filtered)}) {code}'
         )
     progbar.print_done(f'Code generated.')
 
