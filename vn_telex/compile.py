@@ -1,3 +1,4 @@
+from numba import jit
 import re
 import vn_telex.utils.charcases as charcases
 import vn_telex.utils.vntelex as vntelex
@@ -10,7 +11,8 @@ OUT_PATH = './compiled/out.kmn'
 MODIFIERS = list('sfrxjwoa')
 
 
-if __name__ == '__main__':
+@jit
+def main():
     syllables = []
 
     print(f'Loading syllables database at {IN_PATH} ... ', end='')
@@ -114,3 +116,7 @@ if __name__ == '__main__':
     outf.writelines(content)
     outf.close()
     print('[DONE]')
+
+
+if __name__ == '__main__':
+    main()
