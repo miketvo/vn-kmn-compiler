@@ -2,23 +2,38 @@ import sys
 
 
 def print_help():
-    print('Syntax: py compile_letter_cases.py <path/to/input/file> <encoding> <path/to/output/file>')
+    print('Syntax: py charcases.py <path/to/input/file> <encoding> <path/to/output/file>')
 
 
-def case_permutations(n):
-    permutations_string = [bin(x)[2:].rjust(n, '0') for x in range(2 ** n)]
-    permutations = []
+def gen_case_permutations_matrix(n):
+    matrix_str = [bin(x)[2:].rjust(n, '0') for x in range(2 ** n)]
+    matrix = []
 
-    for permutation_string in permutations_string:
+    for line_str in matrix_str:
         permutation = []
-        for digit in permutation_string:
+        for digit in line_str:
             if digit == '0':
                 permutation.append(False)
             else:
                 permutation.append(True)
-        permutations.append(permutation)
+        matrix.append(permutation)
 
-    return permutations
+    return matrix
+
+
+def gen_case_permutations(s):
+    result = []
+    matrix = gen_case_permutations_matrix(len(line))
+    for i in range(len(p)):
+        permutation = ''
+        for char_pos in range(len(line)):
+            if matrix[i][char_pos]:
+                permutation += line[char_pos].upper()
+            else:
+                permutation += line[char_pos].lower()
+        result.append(permutation)
+
+    return result
 
 
 if __name__ == '__main__':
@@ -38,15 +53,8 @@ if __name__ == '__main__':
 
         outs = []
         for line in lines:
-            p = case_permutations(len(line))
-            for i in range(len(p)):
-                out = ''
-                for char_pos in range(len(line)):
-                    if p[i][char_pos]:
-                        out += line[char_pos].upper()
-                    else:
-                        out += line[char_pos].lower()
-                outs.append(out)
+            for case in gen_case_permutations(line):
+                outs.append(case)
 
         if len(sys.argv) <= 2:
             file = open(sys.argv[1], 'w', encoding=encoding)

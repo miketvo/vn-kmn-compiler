@@ -1,4 +1,6 @@
 import re
+import utils.vntelex
+import utils.charcases
 
 
 IN_PATH = './raw/latin-quoc-ngu-syllables.txt'
