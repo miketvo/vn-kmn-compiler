@@ -6,7 +6,7 @@ import vn_telex.utils.progbar as progbar
 
 
 HEADER_PATH = './raw/header.kmn'
-IN_PATH = './test/latin-quoc-ngu-syllables.txt'
+IN_PATH = './raw/latin-quoc-ngu-syllables.txt'
 OUT_PATH = './compiled/out.kmn'
 MODIFIERS = list('sfrxjwoa')
 
