@@ -1,0 +1,74 @@
+c Vietnamese Telex keyboard by Mike Vo
+
+c *******************************************************************
+c HEADERS
+c *******************************************************************
+store(&VERSION) '10.0'
+store(&NAME) 'Vietnamese Telex'
+store(&COPYRIGHT) '© 2022 Mike Vo'
+store(&KEYBOARDVERSION) '1.0'
+store(&TARGETS) 'any'
+store(&VISUALKEYBOARD) 'vietnamese_telex.kvks'
+store(&LAYOUTFILE) 'vietnamese_telex.keyman-touch-layout'
+
+c *******************************************************************
+c CONSTANTS
+c *******************************************************************
+
+store(vowels)                   'aeiouăâêôơưyAEIOUĂÂÊÔƠƯY'
+store(vowels_sac)               'áéíóúắấếốớứýÁÉÍÓÚẮẤẾỐỚỨÝ'
+store(vowels_huyen)             'àèìòùằầềồờừỳÀÈÌÒÙẰẦỀỒỜỪỲ'
+store(vowels_hoi)               'ảẻỉỏủẳẩểổởửỷẢẺỈỎỦẲẨỂỔỞỬỶ'
+store(vowels_nga)               'ãẽĩõũẵẫễỗỡữỹÃẼĨÕŨẴẪỄỖỠỮỸ'
+store(vowels_nang)              'ạẹịọụặậệộợựỵẠẸỊỌỤẶẬỆỘỢỰỴ'
+
+store(consonants)               'qrtpsdghklxcvbnmQRTPSDGHKLXCVBNM'
+
+store(vi_mode)                  '1'
+
+
+c *******************************************************************
+begin Unicode > use(main)          c Code execution entry point
+
+
+group(main) using keys
+    any(vowels) + 's' > index(vowels_sac, 1)
+    any(vowels) + 'S' > index(vowels_sac, 1)
+    any(vowels) + 'f' > index(vowels_huyen, 1)
+    any(vowels) + 'F' > index(vowels_huyen, 1)
+    any(vowels) + 'r' > index(vowels_hoi, 1)
+    any(vowels) + 'R' > index(vowels_hoi, 1)
+    any(vowels) + 'x' > index(vowels_nga, 1)
+    any(vowels) + 'X' > index(vowels_nga, 1)
+    any(vowels) + 'j' > index(vowels_nang, 1)
+    any(vowels) + 'J' > index(vowels_nang, 1)
+
+    'a' + 'w' > 'ă'
+    'a' + 'W' > 'ă'
+    'a' + 'a' > 'â'
+    'a' + 'A' > 'â'
+    'e' + 'e' > 'ê'
+    'e' + 'E' > 'ê'
+    'o' + 'o' > 'ô'
+    'o' + 'O' > 'ô'
+    'o' + 'w' > 'ơ'
+    'o' + 'W' > 'ơ'
+    'u' + 'w' > 'ư'
+    'u' + 'W' > 'ư'
+
+    'A' + 'w' > 'Ă'
+    'A' + 'W' > 'Ă'
+    'A' + 'a' > 'Â'
+    'A' + 'A' > 'Â'
+    'E' + 'e' > 'Ê'
+    'E' + 'E' > 'Ê'
+    'O' + 'o' > 'Ô'
+    'O' + 'O' > 'Ô'
+    'O' + 'w' > 'Ơ'
+    'O' + 'W' > 'Ơ'
+    'U' + 'w' > 'Ư'
+    'U' + 'W' > 'Ư'
+
+    + 'w' > 'ư'
+    'ư' + 'w' > 'w'
+

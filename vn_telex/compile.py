@@ -3,17 +3,11 @@ import vn_telex.utils.charcases as charcases
 import vn_telex.utils.vntelex as vntelex
 import vn_telex.utils.progbar as progbar
 
+
+HEADER_PATH = './raw/header.kmn'
 IN_PATH = './test/latin-quoc-ngu-syllables.txt'
 OUT_PATH = './compiled/out.kmn'
 MODIFIERS = list('sfrxjwoa')
-
-header = [
-    'begin Unicode > use(main)\n',
-    '\n',
-    'group(main) using keys\n'
-]
-
-content = []
 
 
 if __name__ == '__main__':
@@ -93,6 +87,7 @@ if __name__ == '__main__':
     print(f'[DONE] {len(rules_filtered)} rule(s) left.')
 
     print('Generating Keyman code... ')
+    content = []
     for i in range(len(rules_filtered)):
         code = f"    '{rules_filtered[i]['base']}' + '{rules_filtered[i]['modifier'].lower()}' > '{rules_filtered[i]['result']}'\n"
         content.append(code)
@@ -109,6 +104,11 @@ if __name__ == '__main__':
     progbar.print_done(f'Code generated.')
 
     print('Saving Keyman code... ', end='')
+    header = []
+    headerf = open(HEADER_PATH, 'r', encoding='utf-8')
+    for line in headerf:
+        header.append(line)
+    headerf.close()
     outf = open(OUT_PATH, 'w', encoding='utf-8')
     outf.writelines(header)
     outf.writelines(content)
