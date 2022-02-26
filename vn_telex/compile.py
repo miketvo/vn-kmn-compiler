@@ -3,7 +3,7 @@ import vn_telex.utils.charcases as charcases
 import vn_telex.utils.vntelex as vntelex
 import vn_telex.utils.progbar as progbar
 
-IN_PATH = './raw/latin-quoc-ngu-syllables.txt'
+IN_PATH = './test/latin-quoc-ngu-syllables.txt'
 OUT_PATH = './compiled/out.kmn'
 MODIFIERS = list('sfrxjwoa')
 
@@ -17,19 +17,24 @@ content = []
 
 
 if __name__ == '__main__':
-    rules = []
+    syllables = []
 
     print(f'Loading syllables database at {IN_PATH} ... ', end='')
-    inf_len = sum(1 for line in open(IN_PATH, 'r', encoding='utf-8'))
     inf = open(IN_PATH, 'r', encoding='utf-8')
+    for line in inf:
+        syllables.append(line.strip())
+    inf.close()
     print('[DONE]')
-    print(f'Analyzing syllables... ')
-    count = 0
+
+
+
+    print('Analyzing syllables... ')
+    rules = []
+    syllable_count = 0
     rule_count = 0
-    for syllable in inf:
-        count += 1
-        syllable = syllable.strip()
-        if not re.search('^[a-zA-Z@._]*[a-zA-z0-9]$', syllable):
+    for syllable in syllables:
+        syllable_count += 1
+        if not re.search('^[a-zA-Z]*[a-zA-z]$', syllable):
             sequences = vntelex.gen_key_sequences(syllable)
             for sequence in sequences:
                 sequence = "".join(sequence.split())
@@ -42,35 +47,60 @@ if __name__ == '__main__':
                     rules.append(rule)
                     rule_count += 1
                     progbar.print_bar(
-                        percentage=round(count / inf_len * 100),
-                        message=f'({count}/{inf_len}) {syllable}: {sequence}'
+                        percentage=round(syllable_count / len(syllables) * 100),
+                        message=f'({syllable_count}/{len(syllables)}) {syllable}: {sequence}'
                     )
             else:
                 progbar.print_bar(
-                    percentage=round(count / inf_len * 100),
-                    message=f'({count}/{inf_len}) {syllable}'
+                    percentage=round(syllable_count / len(syllables) * 100),
+                    message=f'({syllable_count}/{len(syllables)}) {syllable}'
                 )
-    inf.close()
-    progbar.print_done(f'Analyzing complete. Found {count} syllable(s). Generated {rule_count} rule(s).')
+    progbar.print_done(
+        f'Analyzing complete. Loaded {syllable_count}/{len(syllables)} syllable(s). Generated {rule_count} rule(s).'
+    )
 
-    print(f'Cleaning up ruleset bases... ')
+    print('Cleaning up ruleset bases... ')
+    del_list = []
     for i in range(len(rules)):
-        for j in range(len(rules)):
-            if i != j and rules[i]['base'] == rules[j]['base'] + rules[j]['modifier']:
+        progbar.print_bar(
+            percentage=round(i / len(rules) * 100),
+            message=f'({i}/{len(rules)}) base: {rules[i]["base"]}'
+        )
+        for syllable in syllables:
+            if rules[i]['base'] in vntelex.gen_key_sequences(syllable):
                 progbar.print_bar(
                     percentage=round(i / len(rules) * 100),
-                    message=f'({i}/{len(rules)}) base: {rules[i]["base"]} -> {rules[j]["result"]}'
+                    message=f'({i}/{len(rules)}) base: {rules[i]["base"]} -> {syllable}'
                 )
-                rules[i]['base'] = rules[j]['result']
+                rules[i]['base'] = syllable
             else:
-                progbar.print_bar(
-                    percentage=round(i / len(rules) * 100),
-                    message=f'({i}/{len(rules)}) base: {rules[i]["base"]}'
-                )
+                del_list.append(i)
     progbar.print_done(f'Cleaning complete.')
 
-    content.sort()
+    print('Deleting incorrect rules... ', end='')
+    for index in del_list:
+        del(rules[index])
+    print('[DONE]')
+
+    print('Generating Keyman code... ')
+    for i in range(len(rules)):
+        code = f"    '{rules[i]['base']}' + '{rules[i]['modifier'].lower()}' > '{rules[i]['result']}'\n"
+        content.append(code)
+        progbar.print_bar(
+            percentage=round(i / len(rules) * 100),
+            message=f'({i}/{len(rules)}) {code}'
+        )
+        code = f"    '{rules[i]['base']}' + '{rules[i]['modifier'].upper()}' > '{rules[i]['result']}'\n"
+        content.append(code)
+        progbar.print_bar(
+            percentage=round(i / len(rules) * 100),
+            message=f'({i}/{len(rules)}) {code}'
+        )
+    progbar.print_done(f'Code generated.')
+
+    print('Saving Keyman code... ', end='')
     outf = open(OUT_PATH, 'w', encoding='utf-8')
     outf.writelines(header)
     outf.writelines(content)
     outf.close()
+    print('[DONE]')

@@ -1,12 +1,12 @@
 import sys
 
 
-def print_bar(width=30, empty='-', fill='■', percentage=0, message=''):
+def print_bar(width=30, empty='-', fill='■', left='[', right=']', sep=' ', percentage=0, message=''):
     fill_count = round(percentage / 100 * width)
     bar = fill * fill_count + empty * (width - fill_count)
     sys.stdout.write(
-        f'\r[{bar}] '
-        f'{percentage}% '
+        f'\r{left}{bar}{right}{sep}'
+        f'{percentage}%{sep}'
         f'{message}'
     )
     sys.stdout.flush()

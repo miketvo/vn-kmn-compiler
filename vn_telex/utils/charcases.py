@@ -23,14 +23,14 @@ def gen_case_permutations_matrix(n):
 
 def gen_case_permutations(s):
     result = []
-    matrix = gen_case_permutations_matrix(len(line))
-    for i in range(len(p)):
+    matrix = gen_case_permutations_matrix(len(s))
+    for i in range(len(matrix)):
         permutation = ''
-        for char_pos in range(len(line)):
+        for char_pos in range(len(s)):
             if matrix[i][char_pos]:
-                permutation += line[char_pos].upper()
+                permutation += s[char_pos].upper()
             else:
-                permutation += line[char_pos].lower()
+                permutation += s[char_pos].lower()
         result.append(permutation)
 
     return result
