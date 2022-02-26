@@ -3,7 +3,7 @@ import string
 VOWELS = 'aeiouăâêôơưyAEIOUĂÂÊÔƠƯY'
 ACCENTED_VOWELS = 'ăâêôơưĂÂÊÔƠƯáéíóúắấếốớứýÁÉÍÓÚẮẤẾỐỚỨÝàèìòùằầềồờừỳÀÈÌÒÙẰẦỀỒỜỪỲảẻỉỏủẳẩểổởửỷẢẺỈỎỦẲẨỂỔỞỬỶãẽĩõũẵẫễỗỡữỹÃẼĨÕŨẴẪỄỖỠỮỸạẹịọụặậệộợựỵẠẸỊỌỤẶẬỆỘỢỰỴ'
 
-IN_PATH = './raw/ltn_qn_syllables.txt'
+IN_PATH = './raw/latin-quoc-ngu-syllables.txt'
 OUT_PATH = './compiled/out.kmn'
 content = [
     'begin Unicode > use(main)\n',

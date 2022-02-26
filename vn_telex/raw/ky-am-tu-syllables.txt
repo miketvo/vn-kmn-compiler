@@ -5108,7 +5108,6 @@ khuýp
 khuýt
 khuýu
 khuơ
-khuắng
 khuấn
 khuấng
 khuất
@@ -5126,6 +5125,7 @@ khuận
 khuậng
 khuật
 khuậy
+khuắng
 khuế
 khuếch
 khuếnh
