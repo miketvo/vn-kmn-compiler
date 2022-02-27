@@ -1,4 +1,4 @@
-from numba import jit
+from numba import jit  # Utilize nVidia CUDA, delete this line if your graphic card doesn't support it
 import re
 import vn_telex.utils.charcases as charcases
 import vn_telex.utils.vntelex as vntelex
@@ -6,12 +6,12 @@ import vn_telex.utils.progbar as progbar
 
 
 HEADER_PATH = './raw/header.kmn'
-IN_PATH = './raw/latin-quoc-ngu-syllables.txt'
+IN_PATH = './raw/latin-quoc-ngu-rhymes.txt'
 OUT_PATH = './compiled/out.kmn'
 MODIFIERS = list('sfrxjwoa')
 
 
-@jit(forceobj=True)
+@jit(forceobj=True)  # Utilize nVidia CUDA, delete this line if your graphic card doesn't support it
 def main():
     syllables = []
 
@@ -64,30 +64,30 @@ def main():
         f'Analyzing complete. Loaded {syllable_count}/{len(syllables)} syllable(s). Generated {rule_count} rule(s).'
     )
 
-    # print('Cleaning up ruleset bases... ')
-    # is_del = [True] * len(rules)
-    # for i in range(len(rules)):
-    #     progbar.print_bar(
-    #         percentage=round(i / len(rules) * 100),
-    #         message=f'({i}/{len(rules)}) base: {rules[i]["base"]}'
-    #     )
-    #     for syllable in syllables:
-    #         if rules[i]['base'] in vntelex.gen_key_sequences(syllable):
-    #             progbar.print_bar(
-    #                 percentage=round(i / len(rules) * 100),
-    #                 message=f'({i}/{len(rules)}) base: {rules[i]["base"]} -> {syllable}'
-    #             )
-    #             rules[i]['base'] = syllable
-    #             is_del[i] = False
-    # progbar.print_done(f'Cleaning complete.')
-    #
-    # print('Deleting incorrect rules... ', end='')
-    # rules_filtered = []
-    # for i in range(len(is_del)):
-    #     if not is_del[i]:
-    #         rules_filtered.append(rules[i])
-    # print(f'[DONE] {len(rules_filtered)} rule(s) left.')
-    rules_filtered = rules
+    print('Cleaning up ruleset bases... ')
+    is_del = [True] * len(rules)
+    for i in range(len(rules)):
+        progbar.print_bar(
+            percentage=round(i / len(rules) * 100),
+            message=f'({i}/{len(rules)}) base: {rules[i]["base"]}'
+        )
+        for syllable in syllables:
+            if rules[i]['base'] in vntelex.gen_key_sequences(syllable):
+                progbar.print_bar(
+                    percentage=round(i / len(rules) * 100),
+                    message=f'({i}/{len(rules)}) base: {rules[i]["base"]} -> {syllable}'
+                )
+                rules[i]['base'] = syllable
+                is_del[i] = False
+    progbar.print_done(f'Cleaning complete.')
+
+    print('Deleting incorrect rules... ', end='')
+    rules_filtered = []
+    for i in range(len(is_del)):
+        if not is_del[i]:
+            rules_filtered.append(rules[i])
+    print(f'[DONE] {len(rules_filtered)} rule(s) left.')
+    # rules_filtered = rules
 
     print('Generating Keyman code... ')
     content = []
