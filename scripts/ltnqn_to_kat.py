@@ -31,6 +31,7 @@ ONSETS = {
     'ng': 'ɿ',
     'gh': 'ʁ',
     'g': 'ʁ',
+    'k': 'ɾ',
     'c': 'ɾ',
 }
 RHYMES = {
@@ -78,6 +79,7 @@ RHYMES = {
     'au': 'ʖʅ',
     'âu': 'ʒʅ',
     'êu': 'ʐʅ',
+    'uêu': 'ɮʐʅ',
     'iu': 'ʍʅ',
     'ưu': 'ʎʅ',
     'iêu': 'ʘʅ',
@@ -138,6 +140,7 @@ RHYMES = {
     'iêng': 'ʘʌ',
     'oang': 'ɮʕʌ',
     'oăng': 'ɮʖʌ',
+    'uăng': 'ɮʖʌ',
     'uâng': 'ɮʒʌ',
     'uông': 'ʚʌ',
     'ương': 'ʙʌ',
@@ -145,6 +148,7 @@ RHYMES = {
     'anh': 'ʕʉ',
     'ênh': 'ʐʉ',
     'inh': 'ʍʉ',
+    'iênh': 'ʘʉ',
     'oanh': 'ɮʕʉ',
     'uênh': 'ɮʐʉ',
     'uynh': 'ɮʍʉ',
@@ -216,7 +220,7 @@ TONES = {
 
 
 def decompose(s):
-    onset_pattern = '^(b|d|h|l|m|n|p|r|s|t|v|x|đ|tr|th|ch|ph|nh|kh|gi|qu|ngh|ng|gh|g|c)(?=[aeiouăâêôơưyáéíóúắấếốớứýàèìòùằầềồờừỳảẻỉỏủẳẩểổởửỷãẽĩõũẵẫễỗỡữỹạẹịọụặậệộợựỵ])'
+    onset_pattern = '^(b|d|h|l|m|n|p|r|s|t|v|x|đ|tr|th|ch|ph|nh|kh|gi|qu|ngh|ng|gh|g|k|c)(?=[aeiouăâêôơưyáéíóúắấếốớứýàèìòùằầềồờừỳảẻỉỏủẳẩểổởửỷãẽĩõũẵẫễỗỡữỹạẹịọụặậệộợựỵ])'
     result_array = re.split(onset_pattern, s)
     if len(result_array) != 1:
         result_array = result_array[1:]
@@ -245,14 +249,19 @@ def decompose(s):
             else:
                 toneless_rhyme += result_array[rhyme_pos][i]
 
-        if onset == 'g' and toneless_rhyme == 'i':
+        if onset == 'g' and toneless_rhyme[0] == 'i':
             return {
                 'onset': 'gi',
                 'rhyme': toneless_rhyme
             }
+        if onset == 'gi' and toneless_rhyme[0] == 'ê':
+            return {
+                'onset': 'gi',
+                'rhyme': 'i' + toneless_rhyme
+            }
         if onset == 'qu' and toneless_rhyme[0] == 'y' and len(toneless_rhyme) > 1:
             return {
-                'onset': 'c',
+                'onset': 'k',
                 'rhyme': 'u' + toneless_rhyme
             }
         if onset == 'qu' and toneless_rhyme[0] == 'ô' and len(toneless_rhyme) > 1:
