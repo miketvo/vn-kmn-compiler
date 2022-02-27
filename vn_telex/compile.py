@@ -1,4 +1,5 @@
-from numba import jit  # Utilize nVidia CUDA, delete this line if your graphic card doesn't support it
+from numba import jit  # Utilize nVidia GPU CUDA, delete this line if your graphic card doesn't support it
+from timeit import default_timer as timer
 import re
 import vn_telex.utils.charcases as charcases
 import vn_telex.utils.vntelex as vntelex
@@ -6,13 +7,15 @@ import vn_telex.utils.progbar as progbar
 
 
 HEADER_PATH = './raw/header.kmn'
-IN_PATH = './raw/latin-quoc-ngu-rhymes.txt'
+IN_PATH = './test/latin-quoc-ngu-rhymes.txt'
 OUT_PATH = './compiled/out.kmn'
 MODIFIERS = list('sfrxjwoa')
 
 
-@jit(forceobj=True)  # Utilize nVidia CUDA, delete this line if your graphic card doesn't support it
+@jit(forceobj=True)  # Utilize nVidia GPU CUDA, delete this line if your graphic card doesn't support it
 def main():
+    start_time = timer()
+
     syllables = []
 
     print(f'Loading syllables database at {IN_PATH} ... ', end='')
@@ -87,7 +90,7 @@ def main():
         if not is_del[i]:
             rules_filtered.append(rules[i])
     print(f'[DONE] {len(rules_filtered)} rule(s) left.')
-    # rules_filtered = rules
+    # rules_filtered = rules  # TODO: Remove this line
 
     print('Generating Keyman code... ')
     content = []
@@ -116,8 +119,13 @@ def main():
     outf.writelines(header)
     outf.writelines(content)
     outf.close()
-    print('[DONE]')
+    print(f'[DONE]\n\nTime elapsed: {round(timer() - start_time, 3)}s. ', end='')
 
 
 if __name__ == '__main__':
-    main()
+    try:
+        main()
+    except KeyboardInterrupt:
+        print('\nProcess interrupted.')
+    finally:
+        print('Process terminated.')
