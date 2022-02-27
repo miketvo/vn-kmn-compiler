@@ -345,7 +345,9 @@ if __name__ == '__main__':
         lines = []
         file = open(sys.argv[1], 'r', encoding=encoding)
         for line in file:
-            lines.append(Syllable(sys.argv[1].lower()).get_kat())
+            kat = Syllable(line.strip().lower()).get_kat()
+            print(f'\r{line.strip()} --> {kat}')
+            lines.append(kat + '\n')
         file.close()
 
         if len(sys.argv) <= 2:
