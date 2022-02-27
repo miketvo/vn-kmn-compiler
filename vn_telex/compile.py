@@ -1,4 +1,4 @@
-from numba import jit  # Utilize nVidia GPU CUDA, delete this line if your graphic card doesn't support it
+from numba import jit  # Utilize nVidia GPU CUDA, delete this line if your graphics card doesn't support it
 from timeit import default_timer as timer
 import re
 import vn_telex.utils.charcases as charcases
@@ -12,7 +12,7 @@ OUT_PATH = './compiled/out.kmn'
 MODIFIERS = list('sfrxjwoa')
 
 
-@jit(forceobj=True)  # Utilize nVidia GPU CUDA, delete this line if your graphic card doesn't support it
+@jit(forceobj=True)  # Utilize nVidia GPU CUDA, delete this line if your graphics card doesn't support it
 def main():
     start_time = timer()
 
