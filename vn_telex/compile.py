@@ -1,4 +1,3 @@
-from numba import jit  # Utilize nVidia GPU CUDA, delete this line if your graphics card doesn't support it
 from timeit import default_timer as timer
 import re
 import vn_telex.utils.charcases as charcases
@@ -7,12 +6,11 @@ import vn_telex.utils.progbar as progbar
 
 
 HEADER_PATH = './raw/header.kmn'
-IN_PATH = './test/latin-quoc-ngu-rhymes.txt'
+IN_PATH = './raw/latin-quoc-ngu-rhymes.txt'
 OUT_PATH = './compiled/out.kmn'
 MODIFIERS = list('sfrxjwoa')
 
 
-@jit(forceobj=True)  # Utilize nVidia GPU CUDA, delete this line if your graphics card doesn't support it
 def main():
     start_time = timer()
 
@@ -75,7 +73,7 @@ def main():
             message=f'({i}/{len(rules)}) base: {rules[i]["base"]}'
         )
         for syllable in syllables:
-            if rules[i]['base'] in vntelex.gen_key_sequences(syllable):
+            if rules[i]['base'].lower() in vntelex.gen_key_sequences(syllable.lower()):
                 progbar.print_bar(
                     percentage=round(i / len(rules) * 100),
                     message=f'({i}/{len(rules)}) base: {rules[i]["base"]} -> {syllable}'
@@ -90,7 +88,6 @@ def main():
         if not is_del[i]:
             rules_filtered.append(rules[i])
     print(f'[DONE] {len(rules_filtered)} rule(s) left.')
-    # rules_filtered = rules  # TODO: Remove this line
 
     print('Generating Keyman code... ')
     content = []
