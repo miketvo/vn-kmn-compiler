@@ -40,26 +40,20 @@ def main():
     rule_count = 0
     for syllable in syllables:
         syllable_count += 1
-        if not re.search('^[a-zA-Z]*[a-zA-z]$', syllable):
-            sequences = vntelex.gen_key_sequences(syllable)
-            for sequence in sequences:
-                sequence = "".join(sequence.split())
-                if sequence[-1] in MODIFIERS:
-                    rule = {
-                        'base': sequence[:-1],
-                        'modifier': sequence[-1],
-                        'result': syllable
-                    }
-                    rules.append(rule)
-                    rule_count += 1
-                    progbar.print_bar(
-                        percentage=round(syllable_count / len(syllables) * 100),
-                        message=f'({syllable_count}/{len(syllables)}) {syllable}: {sequence}'
-                    )
-            else:
+        sequences = vntelex.gen_key_sequences(syllable)
+        for sequence in sequences:
+            sequence = "".join(sequence.split())
+            if sequence[-1] in MODIFIERS:
+                rule = {
+                    'base': sequence[:-1],
+                    'modifier': sequence[-1],
+                    'result': syllable
+                }
+                rules.append(rule)
+                rule_count += 1
                 progbar.print_bar(
                     percentage=round(syllable_count / len(syllables) * 100),
-                    message=f'({syllable_count}/{len(syllables)}) {syllable}'
+                    message=f'({syllable_count}/{len(syllables)}) {syllable}: {sequence}'
                 )
     progbar.print_done(
         f'Analyzing complete. Loaded {syllable_count}/{len(syllables)} syllable(s). Generated {rule_count} rule(s).'

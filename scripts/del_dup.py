@@ -12,7 +12,7 @@ if __name__ == '__main__':
         print_help()
     else:
         encoding = 'utf-8'
-        if len(sys.argv) > 2:
+        if len(sys.argv) == 4:
             encoding = sys.argv[2]
 
         lines = []
@@ -26,6 +26,8 @@ if __name__ == '__main__':
 
         if len(sys.argv) <= 2:
             file = open(sys.argv[1], 'w', encoding=encoding)
+        elif len(sys.argv) == 3:
+            file = open(sys.argv[2], 'w', encoding=encoding)
         else:
             file = open(sys.argv[3], 'w', encoding=encoding)
         for line in lines:
