@@ -64,29 +64,30 @@ def main():
         f'Analyzing complete. Loaded {syllable_count}/{len(syllables)} syllable(s). Generated {rule_count} rule(s).'
     )
 
-    print('Cleaning up ruleset bases... ')
-    is_del = [True] * len(rules)
-    for i in range(len(rules)):
-        progbar.print_bar(
-            percentage=round(i / len(rules) * 100),
-            message=f'({i}/{len(rules)}) base: {rules[i]["base"]}'
-        )
-        for syllable in syllables:
-            if rules[i]['base'] in vntelex.gen_key_sequences(syllable):
-                progbar.print_bar(
-                    percentage=round(i / len(rules) * 100),
-                    message=f'({i}/{len(rules)}) base: {rules[i]["base"]} -> {syllable}'
-                )
-                rules[i]['base'] = syllable
-                is_del[i] = False
-    progbar.print_done(f'Cleaning complete.')
-
-    print('Deleting incorrect rules... ', end='')
-    rules_filtered = []
-    for i in range(len(is_del)):
-        if not is_del[i]:
-            rules_filtered.append(rules[i])
-    print(f'[DONE] {len(rules_filtered)} rule(s) left.')
+    # print('Cleaning up ruleset bases... ')
+    # is_del = [True] * len(rules)
+    # for i in range(len(rules)):
+    #     progbar.print_bar(
+    #         percentage=round(i / len(rules) * 100),
+    #         message=f'({i}/{len(rules)}) base: {rules[i]["base"]}'
+    #     )
+    #     for syllable in syllables:
+    #         if rules[i]['base'] in vntelex.gen_key_sequences(syllable):
+    #             progbar.print_bar(
+    #                 percentage=round(i / len(rules) * 100),
+    #                 message=f'({i}/{len(rules)}) base: {rules[i]["base"]} -> {syllable}'
+    #             )
+    #             rules[i]['base'] = syllable
+    #             is_del[i] = False
+    # progbar.print_done(f'Cleaning complete.')
+    #
+    # print('Deleting incorrect rules... ', end='')
+    # rules_filtered = []
+    # for i in range(len(is_del)):
+    #     if not is_del[i]:
+    #         rules_filtered.append(rules[i])
+    # print(f'[DONE] {len(rules_filtered)} rule(s) left.')
+    rules_filtered = rules
 
     print('Generating Keyman code... ')
     content = []
@@ -95,13 +96,13 @@ def main():
         content.append(code)
         progbar.print_bar(
             percentage=round(i / len(rules_filtered) * 100),
-            message=f'({i}/{len(rules_filtered)}) {code}'
+            message=f'({i}/{len(rules_filtered)}) {code[:-1]}'
         )
         code = f"    '{rules_filtered[i]['base']}' + '{rules_filtered[i]['modifier'].upper()}' > '{rules_filtered[i]['result']}'\n"
         content.append(code)
         progbar.print_bar(
             percentage=round(i / len(rules_filtered) * 100),
-            message=f'({i}/{len(rules_filtered)}) {code}'
+            message=f'({i}/{len(rules_filtered)}) {code[:-1]}'
         )
     progbar.print_done(f'Code generated.')
 
