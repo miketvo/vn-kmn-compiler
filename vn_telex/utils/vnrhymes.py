@@ -1,8 +1,10 @@
-import re
-
+#
+# Generate all possible Vietnamese rhyme with their Telex sequence.
+# Note: Using Quy tắc đặt dấu thanh mới: https://vi.wikipedia.org/wiki/Quy_tắc_đặt_dấu_thanh_trong_chữ_quốc_ngữ
+#
 
 TONE_ID = ['flat', 'rise', 'fall', 'inquire', 'break', 'heavy']
-TONE = {
+TONE_MODIFIER = {
     TONE_ID[0]: '',
     TONE_ID[1]: 's',
     TONE_ID[2]: 'f',
@@ -121,11 +123,11 @@ NUCLEI = {
     },
     'oa': {
         TONE_ID[0]: 'oa',
-        TONE_ID[1]: 'óa',
-        TONE_ID[2]: 'òa',
-        TONE_ID[3]: 'ỏa',
+        TONE_ID[1]: 'oá',
+        TONE_ID[2]: 'oà',
+        TONE_ID[3]: 'oả',
         TONE_ID[4]: 'oã',
-        TONE_ID[5]: 'ọa',
+        TONE_ID[5]: 'oạ',
     },
     'oă': {
         TONE_ID[0]: 'oă',
@@ -137,19 +139,19 @@ NUCLEI = {
     },
     'oe': {
         TONE_ID[0]: 'oe',
-        TONE_ID[1]: 'óe',
-        TONE_ID[2]: 'òe',
-        TONE_ID[3]: 'ỏe',
-        TONE_ID[4]: 'õe',
-        TONE_ID[5]: 'ọe',
+        TONE_ID[1]: 'oé',
+        TONE_ID[2]: 'oè',
+        TONE_ID[3]: 'oẻ',
+        TONE_ID[4]: 'oẽ',
+        TONE_ID[5]: 'oẹ',
     },
     'oo': {
         TONE_ID[0]: 'oo',
-        TONE_ID[1]: 'óo',
-        TONE_ID[2]: 'òo',
-        TONE_ID[3]: 'ỏo',
-        TONE_ID[4]: 'õo',
-        TONE_ID[5]: 'ọo',
+        TONE_ID[1]: 'oó',
+        TONE_ID[2]: 'oò',
+        TONE_ID[3]: 'oỏ',
+        TONE_ID[4]: 'oõ',
+        TONE_ID[5]: 'oọ',
     },
     'uâ': {
         TONE_ID[0]: 'uâ',
@@ -216,10 +218,11 @@ NUCLEI = {
         TONE_ID[5]: 'yệ',
     },
 }
-FINAL = {
+FINAL_MATCH = {
+    '': ['a', 'ă', 'â', 'e', 'ê', 'i', 'o', 'ô', 'ơ', 'u', 'ư', 'y', 'iê', 'oa', 'oă', 'oe', 'oo', 'uâ', 'uê', 'uô', 'uy', 'ươ', 'uyê', 'yê'],
     'a': ['i', 'u', 'ư', 'uy'],
     'i': ['a', 'o', 'ô', 'ơ', 'u', 'ư', 'oa', 'uô', 'ươ'],
-    'o': ['a','e', 'oa', 'oe'],
+    'o': ['a', 'e', 'oa', 'oe'],
     'u': ['a', 'â', 'ê', 'i', 'ư', 'iê', 'uy', 'ươ', 'yê'],
     'y': ['a', 'â', 'oa', 'uâ'],
     'm': ['a', 'ă', 'â', 'e', 'ê', 'i', 'o', 'ô', 'ơ', 'u', 'ư', 'iê', 'oa', 'oă', 'oe', 'uô', 'ươ', 'yê'],
@@ -229,6 +232,33 @@ FINAL = {
     'ch': ['a', 'ê', 'i', 'oa', 'uê', 'uy'],
     'c': ['a', 'ă', 'â', 'e', 'o', 'ô', 'u', 'ư', 'iê', 'oa', 'oo', 'uô', 'ươ'],
     't': ['a', 'ă', 'â', 'e', 'ê', 'i', 'o', 'ô', 'ơ', 'u', 'ư', 'iê', 'oa', 'oă', 'oe', 'uâ', 'uô', 'uy', 'ươ', 'uyê', 'yê'],
-    'p': ['a', 'ă', 'â', 'e', 'ê', 'i', 'o', 'ô', 'ơ', 'u', 'ie', 'oa', 'uô', 'uy', 'ươ'],
+    'p': ['a', 'ă', 'â', 'e', 'ê', 'i', 'o', 'ô', 'ơ', 'u', 'iê', 'oa', 'uô', 'uy', 'ươ'],
 }
 
+
+class TelexRhyme:
+    def __init__(self, base, modifier, result):
+        self.base = base
+        self.modifier = modifier
+        self.result = result
+
+
+def generate():
+    rhymes = []
+    for tone_id in TONE_ID:
+        for final in FINAL_MATCH.keys():
+            for nuclei in FINAL_MATCH[final]:
+                modifier = TONE_MODIFIER[tone_id]
+                if modifier != '' and (final in TONE_RANGE["Full"] or (final in TONE_RANGE['Partial'] and tone_id == TONE_ID[1] or tone_id == TONE_ID[5])):
+                    base = NUCLEI[nuclei][TONE_ID[0]] + final
+                    result = NUCLEI[nuclei][tone_id] + final
+                    rhymes.append(TelexRhyme(base, modifier, result))
+                else:
+                    continue
+    return rhymes
+
+
+if __name__ == '__main__':
+    all_rhymes = generate()
+    for i in range(len(all_rhymes)):
+        print(f'{i}. {all_rhymes[i].base} + {all_rhymes[i].modifier} = {all_rhymes[i].result}')
