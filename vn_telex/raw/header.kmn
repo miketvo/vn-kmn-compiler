@@ -1724,3 +1724,4 @@ group(main) using keys
     'THuợ' + 'C' > 'THượC'
     'THuợ' + 'T' > 'THượT'
     'THuợ' + 'P' > 'THượP'
+
