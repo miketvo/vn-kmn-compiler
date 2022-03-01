@@ -1,5 +1,4 @@
 from timeit import default_timer as timer
-import re
 import vn_telex.utils.charcases as charcases
 import vn_telex.utils.vntelex as vntelex
 import vn_telex.utils.progbar as progbar
