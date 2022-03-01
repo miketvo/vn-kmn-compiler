@@ -36,6 +36,19 @@ def gen_case_permutations(s):
     return result
 
 
+def apply_case(s, case_array):
+    if len(s) != len(case_array):
+        raise ValueError('apply_case(s, case_array): Length of s must equal length of case_array')
+    else:
+        result = ''
+        for i in range(len(s)):
+            if case_array[i]:
+                result += s[i].upper()
+            else:
+                result += s[i].lower()
+        return result
+
+
 if __name__ == '__main__':
     if len(sys.argv) == 1:
         print_help()
