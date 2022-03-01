@@ -43,7 +43,7 @@ def main():
         content.append(code)
         progbar.print_bar(
             percentage=round(i / len(rhymes_cases) * 100),
-            message=f'({i}/{len(rhymes_cases)}) {code[:-1]}'
+            message=f'({i}/{len(rhymes_cases)}) {code[4:-1]}'
         )
     progbar.print_done(f'Generating Keyman code... {len(content)} line(s) generated.')
 

@@ -1725,3 +1725,4 @@ group(main) using keys
     'THuợ' + 'T' > 'THượT'
     'THuợ' + 'P' > 'THượP'
 
+    c Python auto generated rules, see https://github.com/miketvo/vn_kmn_compiler/tree/main/vn_telex
