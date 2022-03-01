@@ -12,8 +12,52 @@ TONE_MODIFIER = {
     TONE_ID[4]: 'x',
     TONE_ID[5]: 'j',
 }
+VOWEL_MODIFIER = {
+    'a': ['a', 'ă'],
+    'e': ['e'],
+    'o': ['o'],
+    'w': ['a', 'â', 'o', 'u'],
+}
+SPECIAL_VOWELS = {
+    TONE_ID[0]: {
+        'a': [{'a': 'â'}, {'ă': 'â'}],
+        'e': [{'e': 'ê'}],
+        'o': [{'o': 'ô'}],
+        'w': [{'a': 'ă'}, {'â': 'ă'}, {'o': 'ơ'}, {'u': 'ư'}],
+    },
+    TONE_ID[1]: {
+        'a': [{'á': 'ấ'}, {'ắ': 'ấ'}],
+        'e': [{'é': 'ế'}],
+        'o': [{'ó': 'ố'}],
+        'w': [{'á': 'ắ'}, {'ấ': 'ắ'}, {'ó': 'ớ'}, {'ú': 'ứ'}],
+    },
+    TONE_ID[2]: {
+        'a': [{'à': 'ầ'}, {'ằ': 'ầ'}],
+        'e': [{'è': 'ề'}],
+        'o': [{'ò': 'ồ'}],
+        'w': [{'à': 'ằ'}, {'ầ': 'ằ'}, {'ò': 'ờ'}, {'ù': 'ừ'}],
+    },
+    TONE_ID[3]: {
+        'a': [{'ả': 'ẩ'}, {'ẳ': 'ẩ'}],
+        'e': [{'ẻ': 'ể'}],
+        'o': [{'ỏ': 'ổ'}],
+        'w': [{'ả': 'ẳ'}, {'ẩ': 'ẳ'}, {'ỏ': 'ở'}, {'ủ': 'ử'}],
+    },
+    TONE_ID[4]: {
+        'a': [{'ã': 'ẫ'}, {'ẵ': 'ẫ'}],
+        'e': [{'ẽ': 'ễ'}],
+        'o': [{'õ': 'ỗ'}],
+        'w': [{'ã': 'ẵ'}, {'ẫ': 'ẵ'}, {'õ': 'ỡ'}, {'ũ': 'ữ'}],
+    },
+    TONE_ID[5]: {
+        'a': [{'ạ': 'ậ'}, {'ặ': 'ậ'}],
+        'e': [{'ẹ': 'ệ'}],
+        'o': [{'ọ': 'ộ'}],
+        'w': [{'ạ': 'ặ'}, {'ậ': 'ặ'}, {'ọ': 'ợ'}, {'ụ': 'ự'}],
+    },
+}
 TONE_RANGE = {
-    'Full': ['a', 'i', 'o', 'u', 'y', 'm', 'n', 'ng', 'nh'],
+    'Full': ['', 'a', 'i', 'o', 'u', 'y', 'm', 'n', 'ng', 'nh'],
     'Partial': ['ch', 'c', 't', 'p'],
 }
 NUCLEI = {
@@ -259,6 +303,20 @@ def generate():
                             rhymes.append(TelexRhyme(result, TONE_MODIFIER[tone_change], NUCLEI[nuclei][tone_change] + final))
                 else:
                     continue
+
+        for vowel_modifier in VOWEL_MODIFIER.keys():
+            for j in range(len(VOWEL_MODIFIER[vowel_modifier])):
+                base_vowel = VOWEL_MODIFIER[vowel_modifier][j]
+                for final in FINAL_MATCH.keys():
+                    for nuclei in FINAL_MATCH[final]:
+                        if nuclei == base_vowel:
+                            for k in range(len(SPECIAL_VOWELS[tone_id][vowel_modifier])):
+                                if j == k:
+                                    hashtable = SPECIAL_VOWELS[tone_id][vowel_modifier][k]
+                                    base_vowel_accented = list(SPECIAL_VOWELS[tone_id][vowel_modifier][k].keys())[0]
+                                    if list(hashtable.keys())[0] == base_vowel_accented:
+                                        if SPECIAL_VOWELS[TONE_ID[0]][vowel_modifier][k][base_vowel] in FINAL_MATCH[final]:
+                                            rhymes.append(TelexRhyme(list(hashtable.keys())[0] + final, vowel_modifier, hashtable[base_vowel_accented] + final))
     return rhymes
 
 
