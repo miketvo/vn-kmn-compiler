@@ -253,6 +253,10 @@ def generate():
                     base = NUCLEI[nuclei][TONE_ID[0]] + final
                     result = NUCLEI[nuclei][tone_id] + final
                     rhymes.append(TelexRhyme(base, modifier, result))
+                    rhymes.append(TelexRhyme(result, modifier, base + modifier))
+                    for tone_change in TONE_ID:
+                        if tone_change != tone_id and tone_change != TONE_ID[0]:
+                            rhymes.append(TelexRhyme(result, TONE_MODIFIER[tone_change], NUCLEI[nuclei][tone_change] + final))
                 else:
                     continue
     return rhymes
