@@ -78,8 +78,8 @@ group(main) using keys
     any(vowels_hoi) + 'S' > index(vowels_sac, 1)
     any(vowels_hoi) + 'f' > index(vowels_huyen, 1)
     any(vowels_hoi) + 'F' > index(vowels_huyen, 1)
-    any(vowels_hoi) + 'R' > index(vowels, 1) 'r'
-    any(vowels_hoi) + 'r' > index(vowels, 1) 'R'
+    any(vowels_hoi) + 'R' > index(vowels, 1) 'R'
+    any(vowels_hoi) + 'r' > index(vowels, 1) 'r'
     any(vowels_hoi) + 'x' > index(vowels_nga, 1)
     any(vowels_hoi) + 'X' > index(vowels_nga, 1)
     any(vowels_hoi) + 'j' > index(vowels_nang, 1)
