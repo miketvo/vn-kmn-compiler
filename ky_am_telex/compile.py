@@ -32,7 +32,7 @@ def main():
             percentage=round(i / len(data) * 100),
             message=f'({i}/{len(data)}) {code[4:-1]}'
         )
-        code = f"    '{data[i]['kat']}' + 'z' > '{data[i]['qn']}'\n"
+        code = f"    '{data[i]['kat']}' + dk(dk_z) > '{data[i]['qn']}' dk(dk_z)\n"
         content.append(code)
         progbar.print_bar(
             percentage=round(i / len(data) * 100),

@@ -99,14 +99,12 @@ group(main) using keys
     'Q' + [NCAPS K_Q] > '々'
     'q' + [NCAPS SHIFT K_Q] > '⺀'
     'Q' + [NCAPS SHIFT K_Q] > '⺀'
-    'z' + [NCAPS K_Z] > '个'
-    'Z' + [NCAPS K_Z] > '个'
+    + [NCAPS CTRL ALT K_Q] > '个'
     '々' + [NCAPS K_Q] > 'qq'
     '々' + [NCAPS SHIFT K_Q] > 'qQ'
     '⺀' + [NCAPS K_Q] > 'Qq'
     '⺀' + [NCAPS SHIFT K_Q] > 'QQ'
-    '个' + [NCAPS K_Z] > 'zz'
-    '个' + [NCAPS SHIFT K_Z] > 'zZ'
+    + 'z' > dk(z)
 
     c CAPSLOCK behaviors
     + [CAPS SHIFT K_RBRKT] > '}'
