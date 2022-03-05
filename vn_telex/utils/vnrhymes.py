@@ -167,11 +167,11 @@ NUCLEI = {
     },
     'oa': {
         TONE_ID[0]: 'oa',
-        TONE_ID[1]: 'óa',
-        TONE_ID[2]: 'òa',
-        TONE_ID[3]: 'ỏa',
-        TONE_ID[4]: 'õa',
-        TONE_ID[5]: 'ọa',
+        TONE_ID[1]: 'oá',
+        TONE_ID[2]: 'oà',
+        TONE_ID[3]: 'oả',
+        TONE_ID[4]: 'oã',
+        TONE_ID[5]: 'oạ',
     },
     'oă': {
         TONE_ID[0]: 'oă',
@@ -183,11 +183,11 @@ NUCLEI = {
     },
     'oe': {
         TONE_ID[0]: 'oe',
-        TONE_ID[1]: 'óe',
-        TONE_ID[2]: 'òe',
-        TONE_ID[3]: 'ỏe',
-        TONE_ID[4]: 'õe',
-        TONE_ID[5]: 'ọe',
+        TONE_ID[1]: 'oé',
+        TONE_ID[2]: 'oè',
+        TONE_ID[3]: 'oẻ',
+        TONE_ID[4]: 'oẽ',
+        TONE_ID[5]: 'oẹ',
     },
     'oo': {
         TONE_ID[0]: 'oo',
