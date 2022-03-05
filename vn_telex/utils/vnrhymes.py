@@ -193,8 +193,8 @@ NUCLEI = {
         TONE_ID[0]: 'oo',
         TONE_ID[1]: 'oó',
         TONE_ID[2]: 'oò',
-        TONE_ID[3]: 'oỏ',
-        TONE_ID[4]: 'oõ',
+        TONE_ID[3]: 'oõ',
+        TONE_ID[4]: 'oỏ',
         TONE_ID[5]: 'oọ',
     },
     'uâ': {
