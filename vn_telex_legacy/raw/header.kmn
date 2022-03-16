@@ -1,11 +1,11 @@
-c Vietnamese Telex keyboard by Mike Vo
+c Vietnamese Telex (Legacy Mode) keyboard by Mike Vo
 
 
 c *******************************************************************
 c HEADERS
 c *******************************************************************
 store(&VERSION) '10.0'
-store(&NAME) 'Vietnamese Telex'
+store(&NAME) 'Vietnamese Telex (Legacy Mode)'
 store(&COPYRIGHT) '© 2022 Mike Vo'
 store(&KEYBOARDVERSION) '1.0'
 store(&TARGETS) 'any'
