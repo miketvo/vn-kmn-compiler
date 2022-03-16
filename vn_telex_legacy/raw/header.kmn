@@ -9,8 +9,8 @@ store(&NAME) 'Vietnamese Telex (Legacy Mode)'
 store(&COPYRIGHT) '© 2022 Mike Vo'
 store(&KEYBOARDVERSION) '1.0'
 store(&TARGETS) 'any'
-store(&VISUALKEYBOARD) 'vietnamese_telex.kvks'
-store(&LAYOUTFILE) 'vietnamese_telex.keyman-touch-layout'
+store(&VISUALKEYBOARD) 'vietnamese_telex_legacy.kvks'
+store(&LAYOUTFILE) 'vietnamese_telex_legacy.keyman-touch-layout'
 
 
 c *******************************************************************
