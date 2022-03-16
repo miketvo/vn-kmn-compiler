@@ -1897,4 +1897,4 @@ group(main) using keys
     'GiA' + 'J' > 'GiẠ'
     'GIA' + 'J' > 'GIẠ'
 
-    c Python auto generated rules, see https://github.com/miketvo/vn_kmn_compiler/tree/main/vn_telex
+    c Python auto generated rules, see https://github.com/miketvo/vn_kmn_compiler/tree/main/vn_telex_legacy
