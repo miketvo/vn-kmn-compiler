@@ -23,13 +23,13 @@ def main():
             base = charcases.apply_case(rhymes[i].base, permutation_line)
             if len(rhymes[i].result) == len(permutation_line):
                 result = charcases.apply_case(rhymes[i].result, permutation_line)
-                rhymes_cases.append(vnr.TelexRhyme(base, rhymes[i].modifier.lower(), result))
-                rhymes_cases.append(vnr.TelexRhyme(base, rhymes[i].modifier.upper(), result))
+                rhymes_cases.append(vnr.TelexRule(base, rhymes[i].modifier.lower(), result))
+                rhymes_cases.append(vnr.TelexRule(base, rhymes[i].modifier.upper(), result))
             elif len(rhymes[i].result) == len(permutation_line) + 1:
                 result = charcases.apply_case(rhymes[i].result[0:-1], permutation_line) + rhymes[i].modifier.lower()
-                rhymes_cases.append(vnr.TelexRhyme(base, rhymes[i].modifier.lower(), result))
+                rhymes_cases.append(vnr.TelexRule(base, rhymes[i].modifier.lower(), result))
                 result = charcases.apply_case(rhymes[i].result[0:-1], permutation_line) + rhymes[i].modifier.upper()
-                rhymes_cases.append(vnr.TelexRhyme(base, rhymes[i].modifier.upper(), result))
+                rhymes_cases.append(vnr.TelexRule(base, rhymes[i].modifier.upper(), result))
             progbar.print_bar(
                 percentage=round(i / len(rhymes) * 100),
                 message=f'({i}/{len(rhymes)}) Processing {rhymes[i].result}'
