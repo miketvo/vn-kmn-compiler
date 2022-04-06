@@ -4,7 +4,6 @@
 #
 from vn_telex.utils.TelexRule import TelexRule
 
-
 TONE_ID = ['flat', 'rise', 'fall', 'inquire', 'break', 'heavy']
 TONE_MODIFIER = {
     TONE_ID[0]: '',

@@ -1,8 +1,9 @@
 from timeit import default_timer as timer
 import vn_telex.utils.progbar as progbar
+from vn_telex.utils.TelexRule import TelexRule
 import vn_telex.utils.charcases as charcases
 import vn_telex.utils.vnrhymes as vnr
-
+import vn_telex.utils.uow_rules as uow
 
 HEADER_PATH = './raw/header.kmn'
 OUT_PATH = './compiled/out.kmn'
@@ -12,7 +13,7 @@ def main():
     start_time = timer()
 
     print('Generating Vietnamese rhymes... ', end='')
-    rhymes = vnr.generate()
+    rhymes = vnr.generate() + uow.generate()
     print(f'{len(rhymes)} generated. [DONE]')
 
     print('Generating uppercase and lowercase permutations... ', end='')
@@ -23,13 +24,13 @@ def main():
             base = charcases.apply_case(rhymes[i].base, permutation_line)
             if len(rhymes[i].result) == len(permutation_line):
                 result = charcases.apply_case(rhymes[i].result, permutation_line)
-                rhymes_cases.append(vnr.TelexRule(base, rhymes[i].modifier.lower(), result))
-                rhymes_cases.append(vnr.TelexRule(base, rhymes[i].modifier.upper(), result))
+                rhymes_cases.append(TelexRule(base, rhymes[i].modifier.lower(), result))
+                rhymes_cases.append(TelexRule(base, rhymes[i].modifier.upper(), result))
             elif len(rhymes[i].result) == len(permutation_line) + 1:
                 result = charcases.apply_case(rhymes[i].result[0:-1], permutation_line) + rhymes[i].modifier.lower()
-                rhymes_cases.append(vnr.TelexRule(base, rhymes[i].modifier.lower(), result))
+                rhymes_cases.append(TelexRule(base, rhymes[i].modifier.lower(), result))
                 result = charcases.apply_case(rhymes[i].result[0:-1], permutation_line) + rhymes[i].modifier.upper()
-                rhymes_cases.append(vnr.TelexRule(base, rhymes[i].modifier.upper(), result))
+                rhymes_cases.append(TelexRule(base, rhymes[i].modifier.upper(), result))
             progbar.print_bar(
                 percentage=round(i / len(rhymes) * 100),
                 message=f'({i}/{len(rhymes)}) Processing {rhymes[i].result}'
@@ -39,7 +40,10 @@ def main():
     print('Generating Keyman code... ', end='')
     content = []
     for i in range(len(rhymes_cases)):
-        code = f"    '{rhymes_cases[i].base}' + '{rhymes_cases[i].modifier}' > '{rhymes_cases[i].result}'\n"
+        if rhymes_cases[i].kmnlogic:
+            code = f"    '{rhymes_cases[i].base}' + '{rhymes_cases[i].modifier}' > '{rhymes_cases[i].result}' {rhymes_cases[i].kmnlogic}\n"
+        else:
+            code = f"    '{rhymes_cases[i].base}' + '{rhymes_cases[i].modifier}' > '{rhymes_cases[i].result}'\n"
         content.append(code)
         progbar.print_bar(
             percentage=round(i / len(rhymes_cases) * 100),
