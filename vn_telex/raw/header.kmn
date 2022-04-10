@@ -4,6 +4,7 @@ c Vietnamese Telex keyboard by Mike Vo
 c *******************************************************************
 c HEADERS
 c *******************************************************************
+
 store(&VERSION) '10.0'
 store(&BITMAP) 'vietnamese_telex.ico'
 store(&NAME) 'Vietnamese Telex'
@@ -31,6 +32,10 @@ begin Unicode > use(main)          c Code execution entry point
 
 
 group(main) using keys
+    c Keyboard options
+    store(option_toneplace)         ''
+
+
     c Special d/đ consonant rules - Upper and Lowercase
     'd' + 'd' > 'đ'
     'd' + 'D' > 'đ'
