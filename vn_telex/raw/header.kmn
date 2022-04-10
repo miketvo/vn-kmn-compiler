@@ -33,7 +33,7 @@ begin Unicode > use(main)          c Code execution entry point
 
 group(main) using keys
     c Keyboard options
-    store(option_toneplace)         ''
+    store(option_toneplace)     ''
 
 
     c Special d/đ consonant rules - Upper and Lowercase
