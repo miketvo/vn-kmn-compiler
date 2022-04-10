@@ -3,6 +3,7 @@ import vn_telex.utils.progbar as progbar
 from vn_telex.utils.TelexRule import TelexRule
 import vn_telex.utils.charcases as charcases
 import vn_telex.utils.vnrhymes as vnr
+import vn_telex.utils.vnrhymes_old as vnro
 import vn_telex.utils.uow_rules as uow
 
 HEADER_PATH = './raw/header.kmn'
@@ -13,7 +14,7 @@ def main():
     start_time = timer()
 
     print('Generating Vietnamese rhymes... ', end='')
-    rhymes = vnr.generate() + uow.generate()
+    rhymes = vnr.generate() + vnro.generate() + uow.generate()
     print(f'{len(rhymes)} generated. [DONE]')
 
     print('Generating uppercase and lowercase permutations... ', end='')
@@ -40,14 +41,16 @@ def main():
     print('Generating Keyman code... ', end='')
     content = []
     for i in range(len(rhymes_cases)):
-        if rhymes_cases[i].kmnlogic:
-            code = f"    '{rhymes_cases[i].base}' + '{rhymes_cases[i].modifier}' > '{rhymes_cases[i].result}' {rhymes_cases[i].kmnlogic}\n"
-        else:
-            code = f"    '{rhymes_cases[i].base}' + '{rhymes_cases[i].modifier}' > '{rhymes_cases[i].result}'\n"
+        code = '    '
+        if rhymes_cases[i].kmn_clogic:
+            code += rhymes_cases[i].kmn_clogic + ' '
+        code += f"'{rhymes_cases[i].base}' + '{rhymes_cases[i].modifier}' > '{rhymes_cases[i].result}'\n"
+        if rhymes_cases[i].kmn_ologic:
+            code += ' ' + rhymes_cases[i].kmn_ologic + '\n'
         content.append(code)
         progbar.print_bar(
             percentage=round(i / len(rhymes_cases) * 100),
-            message=f'({i}/{len(rhymes_cases)}) {code[4:-1]}'
+            message=f'({i}/{len(rhymes_cases)}) {code.strip()}'
         )
     progbar.print_done(f'Generating Keyman code... {len(content)} line(s) generated.')
 
