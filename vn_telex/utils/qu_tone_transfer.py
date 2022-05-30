@@ -6,8 +6,8 @@ VOWELS = {
     'i': ['i', 'í', 'ỉ', 'ĩ', 'ị'],
     'y': ['ý', 'ỳ', 'ỷ', 'ỹ', 'ỵ'],
     'o': ['ó', 'ò', 'ỏ', 'õ', 'ọ'],
-    'u': ['ú', 'ù', 'ủ', 'ũ', 'ụ'],
-    'ư': ['ứ', 'ừ', 'ử', 'ữ', 'ự'],
+    # 'u': ['ú', 'ù', 'ủ', 'ũ', 'ụ'],  # This is only needed if 'gi' consonant enabled (line 15)
+    # 'ư': ['ứ', 'ừ', 'ử', 'ữ', 'ự'],  # This is only needed if 'gi' consonant enabled (line 15)
 }
 
 CONSONANTS = {
