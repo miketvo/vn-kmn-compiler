@@ -12,7 +12,7 @@ VOWELS = {
 
 CONSONANTS = {
     'q': ['ú', 'ù', 'ủ', 'ũ', 'ụ', 'u'],
-    'g': ['í', 'ì', 'ỉ', 'ĩ', 'ị', 'i'],
+    # 'g': ['í', 'ì', 'ỉ', 'ĩ', 'ị', 'i'],  # Conflict with the word "gía". Further implementation isn't worth it.
 }
 
 

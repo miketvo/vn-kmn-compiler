@@ -5,7 +5,7 @@ import vn_telex.utils.charcases as charcases
 import vn_telex.utils.vnrhymes as vnr
 import vn_telex.utils.vnrhymes_old as vnro
 import vn_telex.utils.uow_rules as uow
-import vn_telex.utils.qu_and_gi_tone_transfer as qugitt
+import vn_telex.utils.qu_tone_transfer as qugitt
 
 HEADER_PATH = './raw/header.kmn'
 OUT_PATH = './compiled/out.kmn'
