@@ -28,18 +28,29 @@ def main():
             base = charcases.apply_case(rhymes[i].base, permutation_line)
             if len(rhymes[i].result) == len(permutation_line):
                 result = charcases.apply_case(rhymes[i].result, permutation_line)
-                rhymes_cases.append(KeymanRule(base, rhymes[i].modifier.lower(), result, kmn_clogic=rhymes[i].kmn_clogic, kmn_ologic=rhymes[i].kmn_ologic))
-                rhymes_cases.append(KeymanRule(base, rhymes[i].modifier.upper(), result, kmn_clogic=rhymes[i].kmn_clogic, kmn_ologic=rhymes[i].kmn_ologic))
+                rhymes_cases.append(
+                    KeymanRule(
+                        base, rhymes[i].modifier, result,
+                        kmn_clogic=rhymes[i].kmn_clogic, kmn_ologic=rhymes[i].kmn_ologic
+                    )
+                )
             elif len(rhymes[i].result) == len(permutation_line) + 1:
                 if rhymes[i].base in QU_EXCLUDES:
                     result = charcases.apply_case(rhymes[i].result[0:-1], permutation_line)
-                    rhymes_cases.append(KeymanRule(base, rhymes[i].modifier.lower(), result + rhymes[i].result[-1].lower(), kmn_clogic=rhymes[i].kmn_clogic, kmn_ologic=rhymes[i].kmn_ologic))
-                    rhymes_cases.append(KeymanRule(base, rhymes[i].modifier.upper(), result + rhymes[i].result[-1].upper(), kmn_clogic=rhymes[i].kmn_clogic, kmn_ologic=rhymes[i].kmn_ologic))
+                    rhymes_cases.append(
+                        KeymanRule(
+                            base, rhymes[i].modifier.lower(), result + rhymes[i].result[-1].lower(),
+                            kmn_clogic=rhymes[i].kmn_clogic, kmn_ologic=rhymes[i].kmn_ologic
+                        )
+                    )
                 else:
-                    result = charcases.apply_case(rhymes[i].result[0:-1], permutation_line) + rhymes[i].modifier.lower()
-                    rhymes_cases.append(KeymanRule(base, rhymes[i].modifier.lower(), result, kmn_clogic=rhymes[i].kmn_clogic, kmn_ologic=rhymes[i].kmn_ologic))
-                    result = charcases.apply_case(rhymes[i].result[0:-1], permutation_line) + rhymes[i].modifier.upper()
-                    rhymes_cases.append(KeymanRule(base, rhymes[i].modifier.upper(), result, kmn_clogic=rhymes[i].kmn_clogic, kmn_ologic=rhymes[i].kmn_ologic))
+                    result = charcases.apply_case(rhymes[i].result[0:-1], permutation_line) + rhymes[i].modifier
+                    rhymes_cases.append(
+                        KeymanRule(
+                            base, rhymes[i].modifier, result,
+                            kmn_clogic=rhymes[i].kmn_clogic, kmn_ologic=rhymes[i].kmn_ologic
+                        )
+                    )
             progbar.print_bar(
                 percentage=round(i / len(rhymes) * 100),
                 message=f'({i}/{len(rhymes)}) Processing {rhymes[i].result}'
