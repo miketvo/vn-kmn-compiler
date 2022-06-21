@@ -1,11 +1,11 @@
 from timeit import default_timer as timer
-import vn_telex.utils.progbar as progbar
-from vn_telex.utils.TelexRule import TelexRule
-import vn_telex.utils.charcases as charcases
-import vn_telex.utils.vnrhymes as vnr
-import vn_telex.utils.vnrhymes_old as vnro
-import vn_telex.utils.uow_rules as uow
-import vn_telex.utils.qu_tone_transfer as qutt
+import vn_vni.utils.progbar as progbar
+from vn_vni.utils.TelexRule import TelexRule
+import vn_vni.utils.charcases as charcases
+import vn_vni.utils.vnrhymes as vnr
+import vn_vni.utils.vnrhymes_old as vnro
+import vn_vni.utils.uow_rules as uow
+import vn_vni.utils.qu_tone_transfer as qutt
 
 HEADER_PATH = './raw/header.kmn'
 OUT_PATH = './compiled/out.kmn'
