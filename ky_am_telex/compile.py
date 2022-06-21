@@ -1,5 +1,5 @@
 from timeit import default_timer as timer
-import vn_telex.utils.progbar as progbar
+import shared.progbar as progbar
 
 
 DATA_PATH = './raw/ky-am-tu-syllables.csv'
