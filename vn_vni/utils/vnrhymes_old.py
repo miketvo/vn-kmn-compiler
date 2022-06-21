@@ -10,11 +10,11 @@ KMN_CONTEXT_LOGIC = "if(option_toneplace = '')"
 TONE_ID = ['flat', 'rise', 'fall', 'inquire', 'break', 'heavy']
 TONE_MODIFIER = {
     TONE_ID[0]: '',
-    TONE_ID[1]: 's',
-    TONE_ID[2]: 'f',
-    TONE_ID[3]: 'r',
-    TONE_ID[4]: 'x',
-    TONE_ID[5]: 'j',
+    TONE_ID[1]: '1',
+    TONE_ID[2]: '2',
+    TONE_ID[3]: '3',
+    TONE_ID[4]: '4',
+    TONE_ID[5]: '5',
 }
 VOWEL_MODIFIER = {
     'a': ['a', 'ă'],

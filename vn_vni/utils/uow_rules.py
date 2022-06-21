@@ -1,6 +1,6 @@
 from shared.KeymanRule import KeymanRule
 
-MODIFIER = 'w'
+MODIFIER = '7'
 BASE = 'uo'
 PHRASE = 'ưo'
 CORRECTION = 'ươ'
