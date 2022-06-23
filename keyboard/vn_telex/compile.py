@@ -4,6 +4,7 @@ from shared.KeymanRule import KeymanRule
 import shared.charcases as charcases
 import shared.uow_rules as uow
 import shared.cuow_rules as cuow
+import shared.cuowc_rules as cuowc
 import shared.qu_tone_transfer as qutt
 import keyboard.vn_telex.utils.vnrhymes as vnr
 import keyboard.vn_telex.utils.vnrhymes_old as vnro
@@ -21,6 +22,7 @@ def main():
     print('Generating Vietnamese rhymes... ', end='')
     rhymes = uow.generate(modifier='w') + \
              cuow.generate(modifier='w') + \
+             cuowc.generate() + \
              qutt.generate() +\
              vnro.generate() + \
              vnr.generate()
