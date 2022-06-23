@@ -2,8 +2,8 @@ from timeit import default_timer as timer
 import shared.progbar as progbar
 
 
-DATA_PATH = './raw/ky-am-tu-syllables.csv'
-HEADER_PATH = './raw/header.kmn'
+DATA_PATH = 'raw/ky-am-tu-syllables.csv'
+HEADER_PATH = 'raw/header.kmn'
 OUT_PATH = './compiled/out.kmn'
 
 
