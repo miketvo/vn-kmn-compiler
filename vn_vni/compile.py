@@ -3,9 +3,11 @@ import shared.progbar as progbar
 from shared.KeymanRule import KeymanRule
 import shared.charcases as charcases
 import shared.uow_rules as uow
+import shared.cuow_rules as cuow
 import shared.qu_tone_transfer as qutt
 import vn_vni.utils.vnrhymes as vnr
 import vn_vni.utils.vnrhymes_old as vnro
+
 
 HEADER_PATH = './raw/header.kmn'
 OUT_PATH = './compiled/out.kmn'
@@ -17,7 +19,11 @@ def main():
     start_time = timer()
 
     print('Generating Vietnamese rhymes... ', end='')
-    rhymes = vnro.generate() + vnr.generate() + uow.generate(modifier='7') + qutt.generate()
+    rhymes = uow.generate(modifier='7') + \
+             cuow.generate(modifier='7') +\
+             qutt.generate() +\
+             vnro.generate() +\
+             vnr.generate()
     print(f'{len(rhymes)} generated. [DONE]')
 
     print('Generating uppercase and lowercase permutations... ', end='')

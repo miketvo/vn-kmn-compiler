@@ -1,7 +1,8 @@
 from shared.KeymanRule import KeymanRule
 
+
 BASE = 'uo'
-CORRECTION = {
+RULES = {
     'uơ': ['q', 'h', 'th'],
     'ươ': ['ph', 'ch']
 }
@@ -11,6 +12,11 @@ def generate(modifier=None):
     if modifier is None:
         raise ValueError("Must provide a modifier")
     rules = []
+
+    for correction in RULES.keys():
+        for initial_consonant in RULES[correction]:
+            rules.append(KeymanRule(initial_consonant + BASE, modifier, initial_consonant + correction))
+            rules.append(KeymanRule(initial_consonant + correction, modifier, initial_consonant + BASE + modifier))
 
     return rules
 
