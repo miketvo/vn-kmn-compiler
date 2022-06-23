@@ -40,7 +40,7 @@ group(main) using keys
     'd' + '9' > 'đ'
     'đ' + '9' > 'd9'
     'D' + '9' > 'Đ'
-    'D' + '9' > 'D9'
+    'Đ' + '9' > 'D9'
 
     c Single-vowel nuclei accent rules - Upper and Lowercase
     any(vowels) + '1' > index(vowels_sac, 1)
