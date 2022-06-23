@@ -1,4 +1,4 @@
-# Delete line duplications in a text file
+# Delete line duplications in a text file (also sort the file)
 
 import sys
 
