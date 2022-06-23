@@ -157,7 +157,6 @@ group(main) using keys
     'ThUo' + '7' > 'ThUơ'
     'ThuO' + '7' > 'ThuƠ'
     'THUo' + '7' > 'THUơ'
-    'ThUO' + '7' > 'ThUƠ'
     'THUO' + '7' > 'THUƠ'
     'tHuO' + '7' > 'tHuƠ'
     'THuO' + '7' > 'THuƠ'
